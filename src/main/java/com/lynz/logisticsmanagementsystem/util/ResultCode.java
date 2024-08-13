@@ -8,8 +8,8 @@ public enum ResultCode {
 
     ERROR(-100, "Error");
 
-    private Integer code;
-    private String msg;
+    final private Integer code;
+    final private String msg;
 
     ResultCode(Integer code, String msg) {
         this.code = code;
