@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lynz.logisticsmanagementsystem.mapper.UserMapper">
+    <insert id="insertUser">
+        insert into user values (#{name},#{password})
+    </insert>
+
+    <select id="selectUserByUact" resultType="com.lynz.logisticsmanagementsystem.pojo.User">
+        select * from user where username = #{uact}
+    </select>
+
+    <select id="selectUpwdByUact" resultType="java.lang.String">
+        select password from user where username= #{uact}
+    </select>
+</mapper>
