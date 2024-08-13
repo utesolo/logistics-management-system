@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lynz.logisticsmanagementsystem.mapper.UserMapper">
     <insert id="insertUser">
-        insert into user values (#{name},#{password})
+        insert into user values (#{id},#{username},#{password})
     </insert>
 
     <select id="selectUserByUact" resultType="com.lynz.logisticsmanagementsystem.pojo.User">
