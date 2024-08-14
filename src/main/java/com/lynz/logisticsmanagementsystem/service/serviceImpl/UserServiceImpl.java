@@ -12,11 +12,11 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public String loginService(String username, String password) {
-        User user = userMapper.selectUserByUact(username);
+    public String loginService(String username, int password) {
+        User user = userMapper.selectUserByUsername(username);
         if (user != null) {
-            String pwd = user.getPassword();
-            if (pwd.equals(password)) {
+            int pwd = user.getPassword();
+            if (pwd == password) {
                 return "success";
             }else {
                 return "fail";
@@ -27,13 +27,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String registerService(User user) {
-        User userE = userMapper.selectUserByUact(user.getUsername());
+        User userE = userMapper.selectUserByUsername(user.getUsername());
         if (userE == null) {
-            if ("".equals(user.getPassword())) {
+            if (user.getPassword() == 0) {
                 return "not password";
             } else if ("".equals(user.getUsername())) {
                 return "not username";
-            }else{
+            } else if ("".equals(user.getEmail())) {
+                return "not email";
+            } else if ("".equals(user.getPhone())) {
+                return "not phone";
+            } else{
                 userMapper.insertUser(user);
                 return "success";
             }

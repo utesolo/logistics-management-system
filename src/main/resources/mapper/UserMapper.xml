@@ -7,11 +7,11 @@
         insert into user values (#{id},#{username},#{password})
     </insert>
 
-    <select id="selectUserByUact" resultType="com.lynz.logisticsmanagementsystem.pojo.User">
+    <select id="selectUserByUsername" resultType="com.lynz.logisticsmanagementsystem.pojo.User">
         select * from user where username = #{uact}
     </select>
 
-    <select id="selectUpwdByUact" resultType="java.lang.String">
+    <select id="selectPasswordByUsername" resultType="java.lang.String">
         select password from user where username= #{uact}
     </select>
 </mapper>

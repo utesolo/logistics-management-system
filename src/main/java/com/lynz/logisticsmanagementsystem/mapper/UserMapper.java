@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper {
 
-    User selectUserByUact(String uact);
+    User selectUserByUsername(String username);
 
-    String selectUpwdByUact(String uact);
+    String selectPasswordByUsername(String username);
 
     void insertUser(User user);
 

@@ -20,7 +20,7 @@ public class UserController {
     UserServiceImpl userServiceImpl;
 
     @RequestMapping("/login")
-    public Result login(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public Result login(@RequestParam("username") String username, @RequestParam("password") int password) {
         String msg = userServiceImpl.loginService(username, password);
         if (("success").equals(msg)) {
             return ResultUtil.success("登录成功");
@@ -39,5 +39,6 @@ public class UserController {
         }else {
             return ResultUtil.error(msg);
         }
+
     }
 }
