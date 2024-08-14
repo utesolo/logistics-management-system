@@ -1,10 +1,18 @@
+<!-- src/resources/templates/index.html -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head_c(~{::title})">
+    <title>Home Page</title>
 </head>
 <body>
-    <h1>hello</h1>
+
+<div th:insert="~{layout :: nav}"></div>
+
+<!-- 替换 layout/layout.html 中的 content 部分 -->
+<div th:fragment="~{layout :: content}">
+    <h1>Some Page Content</h1>
+    <p>This is the content of some page.</p>
+</div>
+
 </body>
 </html>

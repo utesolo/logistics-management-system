@@ -8,6 +8,22 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3306/logistics?useSSL=false&serverTimezone=UTC
 
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: classpath:/templates
+      suffix: .html
+
 mybatis:
   type-aliases-package: com.lynz.logisticsmanagementsystem.pojo
   mapper-locations: classpath:mapper/*.xml

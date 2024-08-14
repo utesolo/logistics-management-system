@@ -1,0 +1,88 @@
+<!-- src/resources/templates/layout/layout.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head_c(title)">
+    <meta charset="UTF-8">
+    <title>Layout Page</title>
+    <style>
+        /* Preloader styles */
+        @keyframes hidePreloader {
+            0% {
+                width: 100%;
+                height: 100%;
+            }
+
+            100% {
+                width: 0;
+                height: 0;
+            }
+        }
+
+        body>div.preloader {
+            position: fixed;
+            background: white;
+            width: 100%;
+            height: 100%;
+            z-index: 1071;
+            opacity: 0;
+            transition: opacity .5s ease;
+            overflow: hidden;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body:not(.loaded)>div.preloader {
+            opacity: 1;
+        }
+
+        body:not(.loaded) {
+            overflow: hidden;
+        }
+
+        body.loaded>div.preloader {
+            animation: hidePreloader .5s linear .5s forwards;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                document.querySelector('body').classList.add('loaded');
+            }, 300);
+        });
+    </script>
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/static/img/favicon.png}" type="image/png">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" th:href="@{/static/css/all.min.css}">
+    <!-- Quick CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/quick-website.css}" id="stylesheet">
+    <!-- Core JS  -->
+    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/bootstrap.bundle.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/svg-injector.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/feather.min.js}"></script>
+    <!-- Quick JS -->
+    <script type="text/javascript" th:src="@{/static/js/quick-website.js}"></script>
+    <!-- Feather Icons -->
+    <script>
+        feather.replace({
+            'width': '1em',
+            'height': '1em'
+        })
+    </script>
+</head>
+<body>
+
+    <!-- 引入导航栏 -->
+    <div th:fragment="nav" th:replace="fragments/navbar :: nav"></div>
+
+    <!-- 页面内容占位符 -->
+    <div th:fragment="content">
+        <!-- 这里的内容将由子页面替换 -->
+    </div>
+
+
+</body>
+</html>

@@ -13,7 +13,7 @@ public class ResultUtil {
         return result;
     }
 
-    public static Result success(){
+    public static Result successRoot(){
         return success(null);
     }
 
