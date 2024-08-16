@@ -2,6 +2,10 @@ package com.lynz.logisticsmanagementsystem.util;
 
 import lombok.Getter;
 
+/**
+ * @author lynz
+ */
+
 @Getter
 public enum ResultCode {
 

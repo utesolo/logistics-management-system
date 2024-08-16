@@ -4,14 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author lynz
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 // 司机表
 public class Drivers {
     private int driverId;
-    private String driverName; // 姓名
-    private String driverPhone; // 电话
-    private String licenseNo; // 驾驶证号码
-    private String createTime; // 创建时间
+    // 姓名
+    private String driverName;
+    // 电话
+    private String driverPhone;
+    // 驾驶证号码
+    private String licenseNo;
+    // 创建时间
+    private String createTime;
 }

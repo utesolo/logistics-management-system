@@ -1,5 +1,9 @@
 package com.lynz.logisticsmanagementsystem.util;
 
+/**
+ * @author lynz
+ */
+
 public class ResultUtil {
 
     /*

@@ -4,6 +4,10 @@ package com.lynz.logisticsmanagementsystem.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * @author lynz
+ */
+
 @Controller
 public class indexController {
 
@@ -16,7 +20,7 @@ public class indexController {
     @GetMapping("/index")
     public String home() {
         // 返回主页视图
-        return "index"; // 这里返回的视图名称对应于 templates/index.html
+        return "index";
     }
 
     @GetMapping("/layouts")
