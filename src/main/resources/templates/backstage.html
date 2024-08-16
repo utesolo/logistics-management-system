@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物流管理系统</title>
+    <link rel="stylesheet" href="/static/css/backstage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+<body>
+<header class="header">
+    <div class="header-content">
+        <h1 class="logo">物流管理系统</h1>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="#">管理员</a></li>
+                <li><a href="#">退出登录</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <aside class="sidebar">
+        <nav class="nav">
+            <ul>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">用户管理
+                        <i class="arrow fa fa-angle-down"></i>
+                    </a>
+                    <ul class="subnav collapse" id="subnav-users">
+                        <li><a class="undo" href="#">用户列表</a></li>
+                        <li><a class="undo" href="#">添加用户</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="login" class="nav-link">订单管理
+                        <i class="arrow fa fa-angle-down"></i>
+                    </a>
+                    <ul class="subnav collapse" id="subnav-orders">
+                        <li><a class="undo" href="orders">订单列表</a></li>
+                        <li><a class="undo" href="orders_add.html">添加订单</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">公告管理
+                        <i class="arrow fa fa-angle-down"></i>
+                    </a>
+                    <ul class="subnav collapse" id="subnav-announcements">
+                        <li><a class="undo" href="announcements.html">发布公告</a></li>
+                        <li><a class="undo" href="announcements_edit.html">编辑公告</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">车队管理
+                        <i class="arrow fa fa-angle-down"></i>
+                    </a>
+                    <ul class="subnav collapse" id="subnav-vehicles">
+                        <li><a class="undo" href="vehicles.html">车辆管理</a></li>
+                        <li><a class="undo" href="drivers.html">司机管理</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <div class="content" id="content">
+            <!-- 动态内容将加载在这里 -->
+        </div>
+    </main>
+</div>
+
+<script src="/static/js/backstg.js"></script>
+</body>
+</html>

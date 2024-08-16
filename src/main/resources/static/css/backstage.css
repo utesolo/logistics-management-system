@@ -1,0 +1,94 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+}
+
+.logo {
+    display: inline-block;
+}
+
+.top-nav {
+    float: right;
+}
+
+.top-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-nav li {
+    display: inline;
+    margin-left: 10px;
+}
+
+.top-nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    min-height: calc(100vh - 50px); /* 减去 header 的高度 */
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.nav {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #e9ecef;
+}
+
+.subnav {
+    display: none;
+    padding-left: 20px;
+}
+
+.subnav li {
+    padding: 5px 0;
+}
+
+.subnav li a {
+    color: #6c757d;
+}
+
+.subnav li a:hover {
+    color: #007bff;
+}
+
+.arrow {
+    float: right;
+    transition: transform 0.3s ease;
+}
+
+.main {
+    flex-grow: 1;
+    padding: 20px;
+}

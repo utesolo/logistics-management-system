@@ -4,11 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author lynz
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
 // 公告
+
 public class Announcements {
     private int announcementId;
     private String title;
