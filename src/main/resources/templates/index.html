@@ -1,18 +1,48 @@
 <!-- src/resources/templates/index.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: head_c(~{::title})">
+<head th:insert="~{layout :: head_c(~{::title})}">
     <title>Home Page</title>
 </head>
 <body>
 
-<div th:insert="~{layout :: nav}"></div>
+<div th:insert="~{Layout :: nav}"></div>
+<div th:insert="~{Layout :: navjs}"></div>
 
-<!-- 替换 layout/layout.html 中的 content 部分 -->
-<div th:fragment="~{layout :: content}">
-    <h1>Some Page Content</h1>
-    <p>This is the content of some page.</p>
+<div>
+    <h1>主页</h1>
+    <section class="slice py-7">
+        <div class="container">
+            <div class="row row-grid align-items-center">
+                <div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
+                    <!-- Image -->
+                    <figure class="w-100">
+                        <img alt="Image placeholder" src="{{ url_for('static', filename='resources/img/daotian.png') }}" class="img-fluid mw-md-120">
+                    </figure>
+                </div>
+                <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
+                    <!-- Heading -->
+                    <h1 class="display-4 text-center text-md-left mb-3">
+                        传以心<strong class="text-primary">送以情</strong>吧
+                    </h1>
+                    <!-- Text -->
+                    <p class="lead text-center text-md-left text-muted">
+                        还没想好写什么
+                    </p>
+                    <!-- Buttons -->
+                    <div class="text-center text-md-left mt-5">
+                        <a href="/greenhouse_management" class="btn btn-primary btn-icon" target="_blank">
+                            <span class="btn-inner--text">开送</span>
+                            <span class="btn-inner--icon"><i data-feather="chevron-right"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
+
+
 
 </body>
 </html>

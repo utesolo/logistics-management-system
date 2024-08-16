@@ -5,44 +5,10 @@
     <meta charset="UTF-8">
     <title>Layout Page</title>
     <style>
-        /* Preloader styles */
-        @keyframes hidePreloader {
-            0% {
-                width: 100%;
-                height: 100%;
-            }
-
-            100% {
-                width: 0;
-                height: 0;
-            }
-        }
-
-        body>div.preloader {
-            position: fixed;
-            background: white;
+        /* 添加自定义样式 */
+        body {
             width: 100%;
             height: 100%;
-            z-index: 1071;
-            opacity: 0;
-            transition: opacity .5s ease;
-            overflow: hidden;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        body:not(.loaded)>div.preloader {
-            opacity: 1;
-        }
-
-        body:not(.loaded) {
-            overflow: hidden;
-        }
-
-        body.loaded>div.preloader {
-            animation: hidePreloader .5s linear .5s forwards;
         }
     </style>
     <script>
@@ -67,22 +33,42 @@
     <script type="text/javascript" th:src="@{/static/js/quick-website.js}"></script>
     <!-- Feather Icons -->
     <script>
-        feather.replace({
-            'width': '1em',
-            'height': '1em'
-        })
+
     </script>
+
 </head>
 <body>
 
     <!-- 引入导航栏 -->
-    <div th:fragment="nav" th:replace="fragments/navbar :: nav"></div>
+    <div th:fragment="nav" th:insert="~{fragments/navbar :: nav}"></div>
 
-    <!-- 页面内容占位符 -->
-    <div th:fragment="content">
-        <!-- 这里的内容将由子页面替换 -->
-    </div>
 
+    <script th:fragment="navjs">
+        // 头像下拉框
+        function is_logged_in() {
+            // 假设我们有一个函数来检查用户是否已登录
+            $.get('/user/api/is_login', function(data) {
+                if (data.msg === 'Online') {
+                    // 用户已登录
+                    $('#userDropdownMenu').html(`
+                        <a class="dropdown-item" href="/account_management">账户管理</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item logoutLink" href="/user/api/unlogin">注销</a>
+                    `);
+                } else{
+                    // 用户未登录
+                    $('#userDropdownMenu').html(`
+                        <a class="dropdown-item loginLink" href="/user/login">登录</a>
+                        <a class="dropdown-item registerLink" href="/user/register">注册</a>
+                    `);
+                }
+            });
+        }
+
+        $(function(){
+            is_logged_in()
+        })
+    </script>
 
 </body>
 </html>

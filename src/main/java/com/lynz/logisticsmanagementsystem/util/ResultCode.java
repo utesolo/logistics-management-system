@@ -1,12 +1,18 @@
 package com.lynz.logisticsmanagementsystem.util;
 
+import lombok.Getter;
 
+@Getter
 public enum ResultCode {
 
     // 自定义枚举内容
     SUCCESS(200,"Success"),
 
-    ERROR(-100, "Error");
+    ERROR(-100, "Error"),
+
+    ONLINE(200,"Online"),
+
+    OFFLINE(200,"Offline");
 
     final private Integer code;
     final private String msg;
@@ -16,12 +22,5 @@ public enum ResultCode {
         this.msg = msg;
     }
 
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
 
 }

@@ -71,18 +71,18 @@
                 <div class="card shadow zindex-100 mb-0">
                     <div class="card-body px-md-5 py-5">
                         <div class="mb-5">
-                            <h6 class="h3">登录</h6>
-                            <p class="text-muted mb-0">登录你的账号</p>
+                            <h6 class="h3">注册</h6>
+                            <p class="text-muted mb-0">注册账号</p>
                         </div>
                         <span class="clearfix"></span>
-                        <form id="loginForm">
+                        <form id="registerForm">
                             <div class="form-group">
                                 <label class="form-control-label">用户名</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather="user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="输入您的用户名">
+                                    <input type="text" class="form-control" id="username" placeholder="输入您的用户名">
                                 </div>
                             </div>
                             <div class="form-group mb-0">
@@ -95,15 +95,41 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather="key"></i></span>
                                     </div>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="输入您的密码">
+                                    <input type="text" class="form-control" id="password" placeholder="输入您的密码">
+                                </div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <label class="form-control-label">邮箱</label>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather="key"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control" id="email" placeholder="输入您的邮箱">
+                                </div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <label class="form-control-label">电话</label>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather="key"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="phone" placeholder="输入您的电话号码">
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="btn btn-block btn-primary">登录</button></div>
+                                <button type="submit" class="btn btn-block btn-primary">注册</button></div>
                         </form>
                     </div>
-                    <div class="card-footer px-md-5"><small>没有账号？</small>
-                        <a href="#" class="small font-weight-bold">创建账户</a></div>
+                    <div class="card-footer px-md-5"><small>已有账户？</small>
+                        <a href="/user/login" class="small font-weight-bold">点击登录</a></div>
                 </div>
             </div>
         </div>
@@ -125,28 +151,45 @@
 </script>
 
 <script>
-    $(function (){
-        $('#loginForm').on('submit',function (event){
+    $(function () {
+        $('#registerForm').on('submit', function (event) {
             event.preventDefault();
 
             var formData = {
                 username: $('#username').val(),
-                password: $('#password').val()
+                password: $('#password').val(),
+                email: $('#email').val(),
+                phone: $('#phone').val()
             };
-            $.post({
-                url: '/user/api/login',
-                data: formData,
-                success:function (response){
-                    if (response.code === 200){
-                        alert('登录成功')
-                        window.location.href='/';
+
+            $.ajax({
+                type: 'POST',
+                url: '/user/api/register',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (response) {
+                    // 检查服务器返回的状态码
+                    console.log(response.code,response.msg)
+                    if (response.code === 200) {
+                        // 根据消息判断是否注册成功
+                        if (response.msg === "Success") {
+                            alert('注册成功');
+                            window.location.href = '/user/login';
+                        } else {
+                            alert(response.message);
+                        }
                     } else {
-                        alert(response.data)
+                        alert(response.message || '注册失败，请稍后再试。');
                     }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('An error occurred during registration.');
                 }
-            })
-        })
-    })
+            });
+        });
+    });
 </script>
 </body>
 

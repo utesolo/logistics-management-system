@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 // 用户表
 public class User {
-    private int id; // 用户id
+    private String userId; // 用户id
     private String username; //用户名
     private int password; // 用户密码
     private String email; // 用户邮箱
