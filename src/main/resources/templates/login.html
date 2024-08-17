@@ -139,7 +139,11 @@
                 success:function (response){
                     if (response.code === 200){
                         alert('登录成功')
-                        window.location.href='/';
+                        if (response.data === 'root'){
+                            window.location.href='/backstage.html'
+                        }else {
+                            window.location.href='/';
+                        }
                     } else {
                         alert(response.data)
                     }

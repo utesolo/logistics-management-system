@@ -14,4 +14,6 @@ public interface UserMapper {
 
     void insertUser(User user);
 
+    int checkRoot(String username);
+
 }

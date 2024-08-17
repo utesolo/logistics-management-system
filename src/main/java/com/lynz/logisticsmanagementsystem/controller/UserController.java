@@ -32,9 +32,15 @@ public class UserController {
     @RequestMapping("/user/api/login")
     public Result login(@RequestParam("username") String username, @RequestParam("password") int password, HttpSession session) {
         String msg = userServiceImpl.loginService(username, password);
+        boolean checkRoot = userServiceImpl.checkRoot(username);
         if (("success").equals(msg)) {
             session.setAttribute("username", username);
-            return ResultUtil.success("登录成功");
+            if (checkRoot) {
+                return ResultUtil.success("root");
+            }
+            else {
+                return ResultUtil.success("登录成功");
+            }
         }else {
             return ResultUtil.error(msg);
         }

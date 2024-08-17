@@ -44,6 +44,15 @@ public class UserServiceImpl implements UserService {
         }else {
             return "用户已经被注册";
         }
+    }
 
+    @Override
+    public boolean checkRoot(String username) {
+        int root = userMapper.checkRoot(username);
+        if (root == 0) {
+            return false;
+        }else {
+            return true;
+        }
     }
 }
