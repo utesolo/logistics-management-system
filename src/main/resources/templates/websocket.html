@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket-test</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #messages { height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; }
+        #message-input { width: 70%; }
+        #send-button { width: 25%; }
+
+        /* 左侧消息样式 */
+        .left-message {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .left-message .message-text {
+            background-color: #e1f5fe;
+            color: #0d47a1;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+            margin-left: 10px;
+        }
+
+        .left-message .sender-id {
+            color: #0d47a1;
+            margin-right: 10px;
+        }
+
+        /* 右侧消息样式 */
+        .right-message {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .right-message .message-text {
+            background-color: #b2dfdb;
+            color: #004d40;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+            margin-right: 10px;
+        }
+
+        .right-message .sender-id {
+            color: #004d40;
+            margin-left: 10px;
+        }
+    </style>
+    <script src="/static/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div id="chat-container">
+    <h2>物流管理系统聊天室</h2>
+    <div id="messages"></div>
+    <input type="text" id="message-input" placeholder="输入消息...">
+    <button id="send-button">发送</button>
+</div>
+
+<script src="/static/js/websocket.js"></script>
+
+</body>
+</html>
