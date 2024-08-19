@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 // 车辆表
-public class Vehicles {
+public class vehicles {
     // 车辆id
     private int vehicleId;
     // 车牌号

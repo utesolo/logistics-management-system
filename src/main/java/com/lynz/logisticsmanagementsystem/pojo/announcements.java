@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 // 公告
 
-public class Announcements {
+public class announcements {
     private int announcementId;
     private String title;
     private String content;

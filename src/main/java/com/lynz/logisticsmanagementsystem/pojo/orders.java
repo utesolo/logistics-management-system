@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 // 运货单信息表
-public class Orders {
+public class orders {
     // 物流单id
     private int orderId;
     // 物流信息id

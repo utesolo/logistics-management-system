@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 // 司机表
-public class Drivers {
+public class drivers {
     private int driverId;
     // 姓名
     private String driverName;

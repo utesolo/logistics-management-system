@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 // 用户表
-public class User {
+public class user {
     // 用户id
     private String userId;
     //用户名

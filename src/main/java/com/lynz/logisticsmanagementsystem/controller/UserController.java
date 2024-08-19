@@ -1,12 +1,13 @@
 package com.lynz.logisticsmanagementsystem.controller;
 
-import com.lynz.logisticsmanagementsystem.pojo.User;
+import com.lynz.logisticsmanagementsystem.pojo.user;
 import com.lynz.logisticsmanagementsystem.service.serviceImpl.UserServiceImpl;
 import com.lynz.logisticsmanagementsystem.util.Result;
 import com.lynz.logisticsmanagementsystem.util.ResultUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +54,7 @@ public class UserController {
     }
 
     @RequestMapping("/user/api/register")
-    public Result register(@RequestBody User user) {
+    public Result register(@RequestBody user user) {
         Date date = new Date();
         UUID uuid = UUID.randomUUID();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -85,6 +86,14 @@ public class UserController {
         }
     }
 
+
+    @RequestMapping(value = "/user/api/getProfile")
+    @Before("logBeforeMethod")
+    public String getProfile(@RequestParam String username){
+        String profile = userServiceImpl.getProfile(username);
+        log.info(profile);
+        return profile;
+    }
 
     @GetMapping("/user/login")
     public ModelAndView login(Model model){

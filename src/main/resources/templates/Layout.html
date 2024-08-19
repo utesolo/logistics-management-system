@@ -42,13 +42,17 @@
     <!-- 引入导航栏 -->
     <div th:fragment="nav" th:insert="~{fragments/navbar :: nav}"></div>
 
+    <section class="slice py-7">
+
+    </section>
 
     <script th:fragment="navjs">
         // 头像下拉框
         function is_logged_in() {
-            // 假设我们有一个函数来检查用户是否已登录
             $.get('/user/api/is_login', function(data) {
+                console.log(data)
                 if (data.msg === 'Online') {
+                    getProfile()
                     // 用户已登录
                     $('#userDropdownMenu').html(`
                         <a class="dropdown-item" href="/account_management">账户管理</a>
@@ -65,8 +69,21 @@
             });
         }
 
+        function getProfile(){
+            // 获取头像
+            $.get('user/api/getProfile',function (profile){
+                console.log(profile)
+                let profileSrc = "/static/profile"+profile+"jpg"
+                $('#profile').html(`
+                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src=${profileSrc} width="32" height="32" class="rounded-circle mr-1" alt="User Avatar">id
+                    </a>
+                    `);
+            })
+        }
+
         $(function(){
-            is_logged_in()
+            is_logged_in();
         })
     </script>
 

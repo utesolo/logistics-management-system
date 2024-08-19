@@ -1,6 +1,6 @@
 package com.lynz.logisticsmanagementsystem.mapper;
 
-import com.lynz.logisticsmanagementsystem.pojo.User;
+import com.lynz.logisticsmanagementsystem.pojo.user;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -8,12 +8,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper {
 
-    User selectUserByUsername(String username);
+    user selectUserByUsername(String username);
 
     String selectPasswordByUsername(String username);
 
-    void insertUser(User user);
+    void insertUser(user user);
 
     int checkRoot(String username);
+
+    String getProfile(String username);
 
 }

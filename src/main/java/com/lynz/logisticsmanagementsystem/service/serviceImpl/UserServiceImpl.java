@@ -1,7 +1,7 @@
 package com.lynz.logisticsmanagementsystem.service.serviceImpl;
 
 import com.lynz.logisticsmanagementsystem.mapper.UserMapper;
-import com.lynz.logisticsmanagementsystem.pojo.User;
+import com.lynz.logisticsmanagementsystem.pojo.user;
 import com.lynz.logisticsmanagementsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String loginService(String username, int password) {
-        User user = userMapper.selectUserByUsername(username);
+        user user = userMapper.selectUserByUsername(username);
         if (user != null) {
             int pwd = user.getPassword();
             if (pwd == password) {
@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String registerService(User user) {
-        User userE = userMapper.selectUserByUsername(user.getUsername());
+    public String registerService(user user) {
+        com.lynz.logisticsmanagementsystem.pojo.user userE = userMapper.selectUserByUsername(user.getUsername());
         if (userE == null) {
             if (user.getPassword() == 0) {
                 return "not password";
@@ -53,6 +53,17 @@ public class UserServiceImpl implements UserService {
             return false;
         }else {
             return true;
+        }
+    }
+
+    @Override
+    public String getProfile(String username) {
+        String profile = userMapper.getProfile(username);
+
+        if (profile == null) {
+            return "kua5";
+        }else {
+            return profile;
         }
     }
 }

@@ -8,7 +8,7 @@
         values (#{userId}, #{username}, #{password}, #{email}, #{phone}, #{createTime}, #{updateTime}, #{isRoot})
     </insert>
 
-    <select id="selectUserByUsername" resultType="com.lynz.logisticsmanagementsystem.pojo.User">
+    <select id="selectUserByUsername" resultType="com.lynz.logisticsmanagementsystem.pojo.user">
         select * from user where username = #{username}
     </select>
 
@@ -18,5 +18,9 @@
     
     <select id="checkRoot" resultType="int">
         select is_root from user where username = #{username}
+    </select>
+
+    <select id="getProfile" resultType="java.lang.String">
+        select profile from user where username = #{username}
     </select>
 </mapper>
