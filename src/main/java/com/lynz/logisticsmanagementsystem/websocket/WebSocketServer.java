@@ -16,21 +16,24 @@ import java.util.concurrent.Semaphore;
 @Component
 @ServerEndpoint("/websocket/message")
 public class WebSocketServer {
-    // 日志控制器
+    /**
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketServer.class);
 
-    // 最大在线人数
+    /**
+     * 最大在线数
+     */
     public static int socketMaxOlineCount = 10;
 
-    private static Semaphore semaphore = new Semaphore(socketMaxOlineCount);
+    private static final Semaphore SEMAPHORE = new Semaphore(socketMaxOlineCount);
 
-    /*
+    /**
     * 连接建立成功调用方法
     */
     @OnOpen
     public void onOpen(Session session) throws Exception{
-        boolean semaphoreFlag = false;
-        semaphoreFlag = SemaphoreUtils.tryAcquire(semaphore);
+        boolean semaphoreFlag;
+        semaphoreFlag = SemaphoreUtils.tryAcquire(SEMAPHORE);
         if (!semaphoreFlag) {
             // 没有获取到信号量
             LOGGER.error("\n当前在线人数超过限制-{}",socketMaxOlineCount);
@@ -46,16 +49,16 @@ public class WebSocketServer {
         }
     }
 
-    /*
+    /**
     * 连接关闭处理
     */
     @OnClose
     public void onClose(Session session){
         LOGGER.info("\n关闭连接-{}",session);
         // 移除用户
-        WebSocketUser.remove(session.getId());
+        WebSocketUser.remove(session);
         // 释放信号量
-        SemaphoreUtils.release(semaphore);
+        SemaphoreUtils.release(SEMAPHORE);
     }
 
     /**
@@ -73,9 +76,9 @@ public class WebSocketServer {
         LOGGER.info("\n 连接异常 - {}", sessionId);
         LOGGER.info("\n 异常信息 - {}", exception);
         // 移出用户
-        WebSocketUser.remove(sessionId);
+        WebSocketUser.remove(session);
         // 获取到信号量则需释放
-        SemaphoreUtils.release(semaphore);
+        SemaphoreUtils.release(SEMAPHORE);
     }
 
     /**

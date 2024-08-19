@@ -15,11 +15,11 @@ import java.util.Set;
  */
 
 public class WebSocketUser {
-    // 日志控制器
+    /** 日志控制器*/
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketServer.class);
 
-    // 用户集
-    private static Map<String, Session> USERS = new HashMap<String, Session>();
+    /** 用户集*/
+    private static final Map<String, Session> USERS = new HashMap<>();
 
     /**
     * 存储用户
