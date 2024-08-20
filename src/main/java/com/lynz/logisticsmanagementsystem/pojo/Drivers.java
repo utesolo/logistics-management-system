@@ -11,15 +11,26 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-// 司机表
-public class drivers {
+
+public class Drivers {
+    /**
+     * 司机id
+     */
     private int driverId;
-    // 姓名
+    /**
+     * 司机名字
+     */
     private String driverName;
-    // 电话
+    /**
+     * 电话
+     */
     private String driverPhone;
-    // 驾驶证号码
+    /**
+     * 驾驶证号码
+     */
     private String licenseNo;
-    // 创建时间
+    /**
+     * 创建时间
+     */
     private String createTime;
 }

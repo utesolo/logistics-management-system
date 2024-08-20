@@ -8,7 +8,7 @@
         values (#{userId}, #{username}, #{password}, #{email}, #{phone}, #{createTime}, #{updateTime}, #{isRoot})
     </insert>
 
-    <select id="selectUserByUsername" resultType="com.lynz.logisticsmanagementsystem.pojo.user">
+    <select id="selectUserByUsername" resultType="com.lynz.logisticsmanagementsystem.pojo.User">
         select * from user where username = #{username}
     </select>
 

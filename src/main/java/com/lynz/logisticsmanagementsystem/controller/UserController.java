@@ -1,6 +1,6 @@
 package com.lynz.logisticsmanagementsystem.controller;
 
-import com.lynz.logisticsmanagementsystem.pojo.user;
+import com.lynz.logisticsmanagementsystem.pojo.User;
 import com.lynz.logisticsmanagementsystem.service.serviceImpl.UserServiceImpl;
 import com.lynz.logisticsmanagementsystem.util.Result;
 import com.lynz.logisticsmanagementsystem.util.ResultUtil;
@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,10 @@ import java.util.UUID;
 @Controller
 @RestController
 public class UserController {
+    /**
+     * 日志控制器
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     UserServiceImpl userServiceImpl;
 
@@ -54,7 +60,7 @@ public class UserController {
     }
 
     @RequestMapping("/user/api/register")
-    public Result register(@RequestBody user user) {
+    public Result register(@RequestBody User user) {
         Date date = new Date();
         UUID uuid = UUID.randomUUID();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -63,9 +69,9 @@ public class UserController {
         user.setCreateTime(create_time);
         user.setUpdateTime(update_time);
         user.setIsRoot(0);
-        log.info(user.toString());
+        LOGGER.info(user.toString());
         String msg = userServiceImpl.registerService(user);
-        log.info(msg);
+        LOGGER.info(msg);
         if (("success").equals(msg)) {
             return ResultUtil.success("注册成功");
         }else {
@@ -91,7 +97,7 @@ public class UserController {
     @Before("logBeforeMethod")
     public String getProfile(@RequestParam String username){
         String profile = userServiceImpl.getProfile(username);
-        log.info(profile);
+        LOGGER.info(profile);
         return profile;
     }
 

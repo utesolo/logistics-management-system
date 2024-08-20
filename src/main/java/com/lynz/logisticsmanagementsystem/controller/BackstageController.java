@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @RestController
-public class backstageController {
+public class BackstageController {
 
     @RequestMapping("/backstage")
     public ModelAndView backstage() {

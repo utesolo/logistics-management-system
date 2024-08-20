@@ -12,21 +12,34 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-// 运货单信息表
-public class orders {
-    // 物流单id
+public class Orders {
+    /**
+     * 物流表单id
+     */
     private int orderId;
-    // 物流信息id
+    /**
+     * 物流信息id
+     */
     private int logisticsId;
-    // 司机id
+    /**
+     * 司机id
+     */
     private int driverId;
-    // 发货时间
+    /**
+     * 发货时间
+     */
     private String shipTime;
-    // 预计到达时间
+    /**
+     * 预计到达时间
+     */
     private String expectedTime;
-    // 实际到达时间
+    /**
+     * 实际到达时间
+     */
     private String actualTime;
-    // 备注
+    /**
+     * 备注
+     */
     private String remarks;
 
 }
