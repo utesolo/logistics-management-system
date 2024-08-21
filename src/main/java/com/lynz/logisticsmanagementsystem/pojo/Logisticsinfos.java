@@ -29,7 +29,7 @@ public class Logisticsinfos {
     /**物流状态 0发货，1运输，2签收*/
     private int status;
     /**创建时间*/
-    private String createdTime;
+    private String createTime;
     /**更新时间*/
-    private String updatedTime;
+    private String updateTime;
 }

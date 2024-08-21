@@ -60,8 +60,9 @@ public class UserOrdersController {
             logOrder.setSenderAddress(logisticsinfos.getSenderAddress());
             logOrder.setReceiverAddress(logisticsinfos.getReceiverAddress());
             logOrder.setStatus(logisticsinfos.getStatus());
-            logOrder.setCreateTime(logisticsinfos.getCreatedTime());
+            logOrder.setCreateTime(logisticsinfos.getCreateTime());
             logOrder.setUpdateTime(sdf.format(date));
+            LOGGER.info("\n"+driverService.getDrivers(orders.getDriverId()));
             logOrder.setDriverName(driverService.getDrivers(orders.getDriverId()).getDriverName());
             logOrder.setShipTime(orders.getShipTime());
             logOrder.setExpTime(orders.getExpectedTime());
