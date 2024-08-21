@@ -1,14 +1,14 @@
-package com.lynz.logisticsmanagementsystem.service.serviceImpl;
+package com.lynz.logisticsmanagementsystem.service.serviceimpl;
 
 import com.lynz.logisticsmanagementsystem.mapper.UserMapper;
 import com.lynz.logisticsmanagementsystem.pojo.User;
 import com.lynz.logisticsmanagementsystem.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
+    @Resource
     UserMapper userMapper;
 
     @Override
@@ -65,5 +65,16 @@ public class UserServiceImpl implements UserService {
         }else {
             return profile;
         }
+    }
+
+    @Override
+    public String updateUser(String username,User user) {
+        userMapper.updateUser(username,user);
+        return "success";
+    }
+
+    @Override
+    public User getUser(String username) {
+        return userMapper.selectUserByUsername(username);
     }
 }

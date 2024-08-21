@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * @author lynz
+ */
 @Aspect
 @Component
 public class AuthAspect {

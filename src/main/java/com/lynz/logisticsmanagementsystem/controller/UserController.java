@@ -1,7 +1,7 @@
 package com.lynz.logisticsmanagementsystem.controller;
 
 import com.lynz.logisticsmanagementsystem.pojo.User;
-import com.lynz.logisticsmanagementsystem.service.serviceImpl.UserServiceImpl;
+import com.lynz.logisticsmanagementsystem.service.serviceimpl.UserServiceImpl;
 import com.lynz.logisticsmanagementsystem.util.Result;
 import com.lynz.logisticsmanagementsystem.util.ResultUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -101,6 +101,31 @@ public class UserController {
         return profile;
     }
 
+    @RequestMapping(value = "/user/api/update")
+    public Result update(@RequestBody User user,HttpSession session){
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //String username = session.getAttribute("username").toString();
+        String username = user.getUsername();
+        User userE = userServiceImpl.getUser(username);
+        user.setUserId(userE.getUserId());
+        user.setUsername(username);
+        user.setUpdateTime(sdf.format(date));
+        user.setCreateTime(userE.getCreateTime());
+        user.setIsRoot(userE.getIsRoot());
+        LOGGER.info(user.toString());
+
+        userServiceImpl.updateUser(username, user);
+        return ResultUtil.success("更改成功");
+    }
+
+    @RequestMapping("/user/api/getname")
+    public Result getName(HttpSession session){
+        String username = session.getAttribute("username").toString();
+        return ResultUtil.success(username);
+    }
+
     @GetMapping("/user/login")
     public ModelAndView login(Model model){
         return new ModelAndView("login");
@@ -109,5 +134,10 @@ public class UserController {
     @GetMapping("/user/register")
     public ModelAndView register(Model model){
         return new ModelAndView("register");
+    }
+
+    @GetMapping("/user/update")
+    public ModelAndView update(Model model){
+        return new ModelAndView("update");
     }
 }

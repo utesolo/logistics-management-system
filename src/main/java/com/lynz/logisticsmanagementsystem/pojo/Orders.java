@@ -18,6 +18,10 @@ public class Orders {
      */
     private int orderId;
     /**
+     * 用户ID
+     */
+    private int userId;
+    /**
      * 物流信息id
      */
     private int logisticsId;
