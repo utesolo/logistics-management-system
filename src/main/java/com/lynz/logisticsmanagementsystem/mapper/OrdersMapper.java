@@ -17,4 +17,5 @@ public interface OrdersMapper {
      * @return 物流运输情况
      */
     Orders getOrderByLogId(int id);
+
 }

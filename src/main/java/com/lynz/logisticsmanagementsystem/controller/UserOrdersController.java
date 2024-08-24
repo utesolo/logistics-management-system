@@ -40,18 +40,17 @@ public class UserOrdersController {
     }
 
     @GetMapping("/order/getlogisticsinfo")
-    public List<LogOrder> getlogisticsinfo(@RequestParam int userId) {
+    public List<LogOrder> getlogisticsinfo(@RequestParam int userId,@RequestParam int limit,@RequestParam int offset) {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         List<LogOrder> logOrders = new ArrayList<>();
-        List<Logisticsinfos> logisticsinfosList = logisticsinfosServiceImpl.getLogisticsinfosById(userId);
-        LOGGER.info("\n"+logisticsinfosList.toString());
+        List<Logisticsinfos> logisticsinfosList = logisticsinfosServiceImpl.getLogisticsinfosByIdLimit(userId,limit,offset);
+        LOGGER.info("\n用户ID："+userId+"\tlimit："+limit+"\toffset："+offset);
 
         for (Logisticsinfos logisticsinfos : logisticsinfosList) {
-            LOGGER.info("\n"+logisticsinfos.getLogisticsId());
             Orders orders = ordersServiceImpl.getOrderByLogId(logisticsinfos.getLogisticsId());
-            LOGGER.info("\n"+orders.toString());
+
             LogOrder logOrder = new LogOrder();
             logOrder.setOrderId(orders.getOrderId());
             logOrder.setLogId(logisticsinfos.getLogisticsId());
@@ -62,22 +61,34 @@ public class UserOrdersController {
             logOrder.setStatus(logisticsinfos.getStatus());
             logOrder.setCreateTime(logisticsinfos.getCreateTime());
             logOrder.setUpdateTime(sdf.format(date));
-            LOGGER.info("\n"+driverService.getDrivers(orders.getDriverId()));
             logOrder.setDriverName(driverService.getDrivers(orders.getDriverId()).getDriverName());
             logOrder.setShipTime(orders.getShipTime());
             logOrder.setExpTime(orders.getExpectedTime());
-            logOrder.setActTime(orders.getActualTime());
+            if (orders.getActualTime() == null){
+                logOrder.setActTime("未到达");
+            }else {
+                logOrder.setActTime(orders.getActualTime());
+            }
             logOrder.setRemark(orders.getRemarks());
-
+            LOGGER.info("\n"+logOrder.toString());
             logOrders.add(logOrder);
         }
 
         return logOrders;
     }
 
+    @GetMapping("/order/getTotalPages")
+    public int getTotalPages(@RequestParam int userId, @RequestParam int limit) {
+        // 计算总页数
+        int totalRecords = logisticsinfosServiceImpl.getTotalLogisticsInfosCount(userId);
+        LOGGER.info("\n总订单数："+String.valueOf(totalRecords)+"\t总页数"+Math.ceil((double) totalRecords / limit));
+        return (int) Math.ceil((double) totalRecords / limit);
+
+    }
+
     @GetMapping("/order/userorders")
     public ModelAndView userOrders() {
-        return new ModelAndView("order/userorders");
+        return new ModelAndView("userOrders");
     }
 
 }

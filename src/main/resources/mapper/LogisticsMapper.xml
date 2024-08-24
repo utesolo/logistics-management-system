@@ -7,4 +7,12 @@
     <select id="getLogisticsinfosById" resultType="com.lynz.logisticsmanagementsystem.pojo.Logisticsinfos">
         select * from logisticsinfos where user_id = #{id}
     </select>
+
+    <select id="getLogisticsinfosByIdLimit" resultType="com.lynz.logisticsmanagementsystem.pojo.Logisticsinfos">
+        select * from logisticsinfos where user_id = #{id} limit #{limit},#{offset}
+    </select>
+
+    <select id="getTotalLogisticsInfosCount" resultType="int">
+        SELECT COUNT(*) FROM logisticsinfos WHERE user_id = #{userId}
+    </select>
 </mapper>

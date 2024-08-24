@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{layout :: head_c(~{::title})}">
-    <title>Home Page</title>
+    <title>订单</title>
 </head>
 <body>
 
@@ -10,14 +10,149 @@
 <div th:insert="~{Layout :: navjs}"></div>
 
 <div>
-    <section class="slice py-7">
-        <div class="container">
+    <div class="container">
+        <!-- 物流信息表格 -->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">订单ID</th>
+                <th scope="col">物流ID</th>
+                <th scope="col">发件人</th>
+                <th scope="col">收件人</th>
+                <th scope="col">状态</th>
+                <th scope="col">创建时间</th>
+                <th scope="col">更新时间</th>
+                <th scope="col">司机姓名</th>
+                <th scope="col">发货时间</th>
+                <th scope="col">预计时间</th>
+                <th scope="col">实际时间</th>
+                <th scope="col">备注</th>
+            </tr>
+            </thead>
+            <tbody id="logisticsTableBody">
+            </tbody>
+        </table>
 
+        <!-- 分页和记录数选择器 -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="pageSizeSelector" class="form-label">每页记录数:</label>
+                <select id="pageSizeSelector" class="form-select">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="pageNumberSelector" class="form-label">当前页:</label>
+                <select id="pageNumberSelector" class="form-select">
+                </select>
+            </div>
         </div>
-    </section>
+        <!-- 分页控件 -->
+        <div class="d-flex justify-content-center">
+            <button id="prevPage" class="btn btn-secondary">上一页</button>
+            <button id="nextPage" class="btn btn-secondary">下一页</button>
+        </div>
+    </div>
 </div>
 
 
+<script>
+    // 初始化变量
+    let currentPage = 1; // 当前页码
+    let pageSize = 10; // 每页记录数
+    const userId = 1; // 用户ID
 
+    // 更新表格内容
+    function updateTable() {
+        fetch(`/order/getlogisticsinfo?userId=9&limit=${(currentPage - 1) * pageSize}&offset=${pageSize}`)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('logisticsTableBody');
+                tbody.innerHTML = ''; // 清空表格
+
+                data.forEach(item => {
+                    const row = `
+                        <tr>
+                            <td>${item.orderId}</td>
+                            <td>${item.logId}</td>
+                            <td>${item.senderName}</td>
+                            <td>${item.receiverName}</td>
+                            <td>${item.status}</td>
+                            <td>${item.createTime}</td>
+                            <td>${item.updateTime}</td>
+                            <td>${item.driverName}</td>
+                            <td>${item.shipTime}</td>
+                            <td>${item.expTime}</td>
+                            <td>${item.actTime}</td>
+                            <td>${item.remark}</td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+
+                // 更新当前页码显示
+                document.getElementById('pageNumberSelector').value = currentPage;
+
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 监听每页记录数变化
+    document.getElementById('pageSizeSelector').addEventListener('change', function () {
+        pageSize = parseInt(this.value);
+        currentPage = 1; // 切换记录数时重置到第一页
+        updateTable();
+    });
+
+    // 监听当前页码变化
+    document.getElementById('pageNumberSelector').addEventListener('change', function () {
+        currentPage = parseInt(this.value);
+        updateTable();
+    });
+
+    // 上一页按钮
+    document.getElementById('prevPage').addEventListener('click', function () {
+        if (currentPage > 1) {
+            currentPage--;
+            updateTable();
+        }
+    });
+
+    // 下一页按钮
+    document.getElementById('nextPage').addEventListener('click', function () {
+        // 需要获取总页数，这里先假设总页数为10
+        const totalPages = 10; // 假设总页数
+        if (currentPage < totalPages) {
+            currentPage++;
+            updateTable();
+        }
+    });
+
+    // 初始化页面
+    updateTable();
+
+    // 获取总页数并填充页码选择器
+    fetch(`/order/getTotalPages?userId=9&limit=${pageSize}`)
+        .then(response => response.json())
+        .then(data => {
+            const totalPages = data;
+            const pageNumberSelector = document.getElementById('pageNumberSelector');
+            pageNumberSelector.innerHTML = ''; // 清空下拉列表
+
+            for (let i = 1; i <= totalPages; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                if (i === currentPage) {
+                    option.selected = true; // 设置当前页为选中状态
+                }
+                pageNumberSelector.appendChild(option);
+            }
+        })
+        .catch(error => console.error('Error fetching total pages:', error));
+</script>
 </body>
 </html>

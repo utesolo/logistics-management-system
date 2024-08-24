@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head_c(title)">
     <meta charset="UTF-8">
-    <title>Layout Page</title>
+    <title th:text="${title}">Default Title</title>
     <style>
         /* 添加自定义样式 */
         body {

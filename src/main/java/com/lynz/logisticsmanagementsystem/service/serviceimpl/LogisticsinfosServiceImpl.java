@@ -21,5 +21,13 @@ public class LogisticsinfosServiceImpl implements LogisticsinfosService {
         return logisticsMapper.getLogisticsinfosById(id);
     }
 
+    @Override
+    public List<Logisticsinfos> getLogisticsinfosByIdLimit(int id, int limit,int offset) {
+        return logisticsMapper.getLogisticsinfosByIdLimit(id,limit,offset);
+    }
 
+    @Override
+    public int getTotalLogisticsInfosCount(int userId) {
+        return logisticsMapper.getTotalLogisticsInfosCount(userId);
+    }
 }
