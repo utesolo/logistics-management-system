@@ -79,7 +79,7 @@
                                 <label class="form-control-label">用户名</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather="user"></i></span>
+                                        <span class="input-group-text"><i data-feather="users"></i></span>
                                     </div>
                                     <input readonly type="text" class="form-control" id="username" placeholder="输入您的用户名">
                                 </div>
@@ -161,7 +161,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/user/api/update',
+                url: '/users/api/update',
                 data: JSON.stringify(formData),
                 contentType: 'application/json',
                 dataType: 'json',
@@ -172,7 +172,7 @@
                         // 根据消息判断是否注册成功
                         if (response.msg === "Success") {
                             alert('修改成功');
-                            window.location.href = '/user/update';
+                            window.location.href = '/users/update';
                         } else {
                             alert(response.message);
                         }
@@ -190,7 +190,7 @@
 
     function fetchUsername() {
         // 假设这是您的API URL
-        const url = '/user/api/getname';
+        const url = '/users/api/getname';
 
         fetch(url)
             .then(response => response.json())  // 解析JSON数据

@@ -80,7 +80,7 @@
                                 <label class="form-control-label">用户名</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather="user"></i></span>
+                                        <span class="input-group-text"><i data-feather="users"></i></span>
                                     </div>
                                     <input type="text" class="form-control" id="username" placeholder="输入您的用户名">
                                 </div>
@@ -129,7 +129,7 @@
                         </form>
                     </div>
                     <div class="card-footer px-md-5"><small>已有账户？</small>
-                        <a href="/user/login" class="small font-weight-bold">点击登录</a></div>
+                        <a href="/users/login" class="small font-weight-bold">点击登录</a></div>
                 </div>
             </div>
         </div>
@@ -162,9 +162,10 @@
                 phone: $('#phone').val()
             };
 
+            console.log(formData)
             $.ajax({
                 type: 'POST',
-                url: '/user/api/register',
+                url: '/users/api/register',
                 data: JSON.stringify(formData),
                 contentType: 'application/json',
                 dataType: 'json',
@@ -175,7 +176,7 @@
                         // 根据消息判断是否注册成功
                         if (response.msg === "Success") {
                             alert('注册成功');
-                            window.location.href = '/user/login';
+                            window.location.href = '/users/login';
                         } else {
                             alert(response.message);
                         }

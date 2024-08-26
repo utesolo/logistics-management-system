@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface DriversMapper {
-    public Drivers getDrivers(int userId);
+    Drivers getDrivers(int userId);
 }

@@ -1,6 +1,6 @@
 package com.lynz.logisticsmanagementsystem.service;
 
-import com.lynz.logisticsmanagementsystem.pojo.User;
+import com.lynz.logisticsmanagementsystem.pojo.Users;
 
 /**
  * @author lynz
@@ -12,13 +12,13 @@ public interface UserService {
      * @param password 密码
      * @return 用户
      */
-    String loginService(String username, int password);
+    String loginService(String username, String password);
     /**
      * 插入用户
-     * @param user 用户信息
+     * @param users 用户信息
      * @return 注册是否成功
      */
-    String registerService(User user);
+    String registerService(Users users);
     /**
      * 确认是否为管理员
      * @param username 用户名称
@@ -34,16 +34,16 @@ public interface UserService {
 
     /**
      * 更新用户信息
-     * @param user 用户
+     * @param users 用户
      * @param username 用户名
      * @return 返回成功
      */
-    String updateUser(String username,User user);
+    String updateUser(String username, Users users);
 
     /**
      * 获取用户信息
      * @param username 用户名
      * @return 用户信息
      */
-    User getUser(String username);
+    Users getUser(String username);
 }

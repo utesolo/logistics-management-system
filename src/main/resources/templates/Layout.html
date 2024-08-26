@@ -49,24 +49,40 @@
     <script th:fragment="navjs">
         // 头像下拉框
         function is_logged_in() {
-            $.get('/user/api/is_login', function(data) {
+            $.get('/users/api/is_login', function(data) {
                 console.log(data)
                 if (data.msg === 'Online') {
                     // 用户已登录
                     $('#userDropdownMenu').html(`
-                        <a class="dropdown-item" href="/user/update">账户管理</a>
+                        <a class="dropdown-item" href="/users/update">账户管理</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item logoutLink" href="/user/api/unlogin">注销</a>
+                        <a class="dropdown-item logoutLink" href="/users/api/logout">注销</a>
                     `);
                 } else if (data.msg === 'Offline'){
                     // 用户未登录
                     $('#userDropdownMenu').html(`
-                        <a class="dropdown-item loginLink" href="/user/login">登录</a>
-                        <a class="dropdown-item registerLink" href="/user/register">注册</a>
+                        <a class="dropdown-item loginLink" href="/users/login">登录</a>
+                        <a class="dropdown-item registerLink" href="/users/register">注册</a>
                     `);
                 }
             });
         }
+
+        window.addEventListener('beforeunload', function (event) {
+            // 发送登出请求
+            fetch('/users/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: '' // 可以根据需要传递参数
+            }).then(function (response) {
+                // 登出响应处理
+                console.log('Logout successful');
+            }).catch(function (error) {
+                console.error('Error logging out:', error);
+            });
+        });
 
         $(function(){
             is_logged_in();

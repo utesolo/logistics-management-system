@@ -1,22 +1,34 @@
 package com.lynz.logisticsmanagementsystem.service.serviceimpl;
 
 import com.lynz.logisticsmanagementsystem.mapper.UserMapper;
-import com.lynz.logisticsmanagementsystem.pojo.User;
+import com.lynz.logisticsmanagementsystem.pojo.Users;
 import com.lynz.logisticsmanagementsystem.service.UserService;
-import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
+/**
+ * @author lynz
+ */
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
-    @Resource
-    UserMapper userMapper;
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder) {
+        this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
-    public String loginService(String username, int password) {
-        User user = userMapper.selectUserByUsername(username);
+    public String loginService(String username, String password) {
+        Users user = userMapper.selectUserByUsername(username);
         if (user != null) {
-            int pwd = user.getPassword();
-            if (pwd == password) {
+            String pwd = user.getPassword();
+            if (Objects.equals(pwd, password)) {
                 return "success";
             }else {
                 return "fail";
@@ -26,10 +38,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String registerService(User user) {
-        User userE = userMapper.selectUserByUsername(user.getUsername());
+    public String registerService(Users user) {
+        Users userE = userMapper.selectUserByUsername(user.getUsername());
         if (userE == null) {
-            if (user.getPassword() == 0) {
+            if (Objects.isNull(user.getPassword())) {
                 return "not password";
             } else if ("".equals(user.getUsername())) {
                 return "not username";
@@ -38,6 +50,8 @@ public class UserServiceImpl implements UserService {
             } else if ("".equals(user.getPhone())) {
                 return "not phone";
             } else{
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                log.info("\n+{}",user.toString());
                 userMapper.insertUser(user);
                 return "success";
             }
@@ -68,13 +82,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String updateUser(String username,User user) {
+    public String updateUser(String username,Users user) {
         userMapper.updateUser(username,user);
         return "success";
     }
 
     @Override
-    public User getUser(String username) {
+    public Users getUser(String username) {
         return userMapper.selectUserByUsername(username);
     }
 }

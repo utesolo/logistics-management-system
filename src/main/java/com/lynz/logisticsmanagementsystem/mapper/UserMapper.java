@@ -1,8 +1,10 @@
 package com.lynz.logisticsmanagementsystem.mapper;
 
-import com.lynz.logisticsmanagementsystem.pojo.User;
+import com.lynz.logisticsmanagementsystem.pojo.Users;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author lynz
@@ -15,7 +17,7 @@ public interface UserMapper {
      * @param username 用户名称
      * @return 用户
      */
-    User selectUserByUsername(String username);
+    Users selectUserByUsername(String username);
     /**
      * 查找密码
      * @param username 用户名称
@@ -24,9 +26,9 @@ public interface UserMapper {
     String selectPasswordByUsername(String username);
     /**
      * 插入用户
-     * @param user 用户信息
+     * @param users 用户信息
      */
-    void insertUser(User user);
+    void insertUser(Users users);
     /**
      * 确认是否为管理员
      * @param username 用户名称
@@ -42,9 +44,15 @@ public interface UserMapper {
 
     /**
      * 更新用户信息
-     * @param user 用户信息
+     * @param users 用户信息
      * @param username 用户名
      */
-    void updateUser(String username,User user);
+    void updateUser(String username, Users users);
+
+    /**
+     * 查找全部用户
+     * @return 全部用户
+     */
+    List<Users> findAll();
 
 }
