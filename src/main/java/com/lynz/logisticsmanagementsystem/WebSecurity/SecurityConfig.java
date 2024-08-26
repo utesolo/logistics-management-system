@@ -42,10 +42,11 @@ public class SecurityConfig{
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         // anyRequest 请求需要授权
         // authenticated 请求需要认证（登录）
-        http.authorizeRequests(authorizeHttpRequests ->
+        http.authorizeHttpRequests(authorizeHttpRequests ->
                 authorizeHttpRequests
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/static/css/*.css","/static/js/*.js","/static/img/**").permitAll()
+                        .requestMatchers("/login","/","/index","register.html").permitAll()
+                        .requestMatchers("/users/**").permitAll()
+                        .requestMatchers("/static/**").permitAll()
                         .anyRequest()
                         .authenticated()
         );
@@ -55,12 +56,16 @@ public class SecurityConfig{
                 formLogin
                     .loginPage("/login.html").permitAll()
                     .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/index")
+                    .defaultSuccessUrl("/")
         );
 
         http.csrf(csrf->csrf.disable());
 
-        http.logout(logout->logout.invalidateHttpSession(true));
+        http.logout(logout->
+                logout
+                        .invalidateHttpSession(true)
+                        .logoutSuccessUrl("/")
+        );
 
         return http.build();
     }

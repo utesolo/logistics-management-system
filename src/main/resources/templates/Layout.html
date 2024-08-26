@@ -56,9 +56,9 @@
                     $('#userDropdownMenu').html(`
                         <a class="dropdown-item" href="/users/update">账户管理</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item logoutLink" href="/users/api/logout">注销</a>
+                        <a class="dropdown-item logoutLink" href="/logout">注销</a>
                     `);
-                } else if (data.msg === 'Offline'){
+                } else{
                     // 用户未登录
                     $('#userDropdownMenu').html(`
                         <a class="dropdown-item loginLink" href="/users/login">登录</a>

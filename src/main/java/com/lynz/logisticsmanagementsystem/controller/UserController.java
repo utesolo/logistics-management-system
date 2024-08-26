@@ -4,16 +4,17 @@ import com.lynz.logisticsmanagementsystem.pojo.Users;
 import com.lynz.logisticsmanagementsystem.service.serviceimpl.UserServiceImpl;
 import com.lynz.logisticsmanagementsystem.util.Result;
 import com.lynz.logisticsmanagementsystem.util.ResultUtil;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,44 +27,18 @@ import java.util.UUID;
 
 @SuppressWarnings({"all"})
 @Controller
-
 public class UserController {
     /**
      * 日志控制器
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping("/{page}")
-    public String showPage(@PathVariable String page){
-        return page;
-    }
+
     @Autowired
     UserServiceImpl userServiceImpl;
 
-    @RequestMapping("/user/api/login")
-    public Result login(@RequestParam("username") String username, @RequestParam("password") String  password, HttpSession session) {
-        String msg = userServiceImpl.loginService(username, password);
-        boolean checkRoot = userServiceImpl.checkRoot(username);
-        if (("success").equals(msg)) {
-            session.setAttribute("username", username);
-            if (checkRoot) {
-                return ResultUtil.success("root");
-            }
-            else {
-                return ResultUtil.success("登录成功");
-            }
-        }else {
-            return ResultUtil.error(msg);
-        }
-    }
 
-    @GetMapping(value = "/user/api/unlogin")
-    public String unlogin(HttpSession session) {
-        session.removeAttribute("username");
-        return "redirect:/index";
-    }
-
-    @PostMapping("/user/api/register")
+    @PostMapping("/users/api/register")
     @ResponseBody
     public Result register(@RequestBody Users users) {
         Date date = new Date();
@@ -84,21 +59,23 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/user/api/is_login",method = RequestMethod.GET)
-    public Result is_login(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        if (session.getAttribute("username") != null) {
-            String username = session.getAttribute("username").toString();
-            if ((username != null) && (!username.equals(""))) {
-                return ResultUtil.online("在线");
-            }else return ResultUtil.offline("不在线");
-        }else {
+    @RequestMapping(value = "/users/api/is_login",method = RequestMethod.GET)
+    @ResponseBody
+    public Result is_login(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            // 用户已登录
+            String currentPrincipalName = authentication.getName();
+            return ResultUtil.online("在线");
+        } else {
+            // 用户未登录
             return ResultUtil.offline("不在线");
         }
     }
 
 
-    @RequestMapping(value = "/user/api/getProfile")
+    @RequestMapping(value = "/users/api/getProfile")
+    @ResponseBody
     @Before("logBeforeMethod")
     public String getProfile(@RequestParam String username){
         String profile = userServiceImpl.getProfile(username);
@@ -106,7 +83,8 @@ public class UserController {
         return profile;
     }
 
-    @RequestMapping(value = "/user/api/update")
+    @RequestMapping(value = "/users/api/update")
+    @ResponseBody
     public Result update(@RequestBody Users users, HttpSession session){
 
         Date date = new Date();
@@ -125,24 +103,25 @@ public class UserController {
         return ResultUtil.success("更改成功");
     }
 
-    @RequestMapping("/user/api/getname")
+    @RequestMapping("/users/api/getname")
+    @ResponseBody
     public Result getName(HttpSession session){
         String username = session.getAttribute("username").toString();
         return ResultUtil.success(username);
     }
 
-    @GetMapping("/user/login")
-    public ModelAndView login(Model model){
-        return new ModelAndView("login");
+    @GetMapping("/users/login")
+    public String login(Model model){
+        return "login";
     }
 
-    @GetMapping("/user/register")
-    public ModelAndView register(Model model){
-        return new ModelAndView("register");
+    @GetMapping("/users/register")
+    public String register(Model model){
+        return "register";
     }
 
-    @GetMapping("/user/update")
-    public ModelAndView update(Model model){
-        return new ModelAndView("update");
+    @GetMapping("/users/update")
+    public String update(Model model){
+        return "update";
     }
 }
