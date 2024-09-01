@@ -103,20 +103,27 @@ public class UserController {
         return ResultUtil.success("更改成功");
     }
 
-    @RequestMapping("/users/api/getname")
+    @RequestMapping(value = "/users/api/getname",method = RequestMethod.GET)
     @ResponseBody
-    public Result getName(HttpSession session){
-        String username = session.getAttribute("username").toString();
-        return ResultUtil.success(username);
+    public Result getName(){
+        Users usersE = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResultUtil.success(usersE.getUsername());
+    }
+
+    @RequestMapping(value = "/users/api/getId",method = RequestMethod.GET)
+    @ResponseBody
+    public Result getId(){
+        Users usersE = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResultUtil.success(usersE.getUserId());
     }
 
     @GetMapping("/users/login")
-    public String login(Model model){
+    public String login(){
         return "login";
     }
 
     @GetMapping("/users/register")
-    public String register(Model model){
+    public String register(){
         return "register";
     }
 

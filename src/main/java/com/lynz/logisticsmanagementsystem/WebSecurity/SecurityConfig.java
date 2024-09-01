@@ -54,9 +54,10 @@ public class SecurityConfig{
         // loginProcessingUrl 登录url 过滤器
         http.formLogin(formLogin->
                 formLogin
-                    .loginPage("/login.html").permitAll()
-                    .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/")
+                        .loginPage("/login.html").permitAll()
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/fail.html")
         );
 
         http.csrf(csrf->csrf.disable());

@@ -62,11 +62,16 @@
     // 初始化变量
     let currentPage = 1; // 当前页码
     let pageSize = 10; // 每页记录数
-    const userId = 1; // 用户ID
+    let userId; // 用户ID
+
+    function getUserId() {
+        fetch(`/users/api/getId`).then(response=>response.json()).then(data=>userId=data.data)
+    }
 
     // 更新表格内容
     function updateTable() {
-        fetch(`/order/getlogisticsinfo?userId=9&limit=${(currentPage - 1) * pageSize}&offset=${pageSize}`)
+        getUserId();
+        fetch(`/order/getlogisticsinfo?userId=${userId}&limit=${(currentPage - 1) * pageSize}&offset=${pageSize}`)
             .then(response => response.json())
             .then(data => {
                 const tbody = document.getElementById('logisticsTableBody');
@@ -131,10 +136,13 @@
     });
 
     // 初始化页面
-    updateTable();
+    $(document).ready(function (){
+        getUserId();
+        updateTable();
+    })
 
     // 获取总页数并填充页码选择器
-    fetch(`/order/getTotalPages?userId=9&limit=${pageSize}`)
+    fetch(`/order/getTotalPages?userId=${userId}&limit=${pageSize}`)
         .then(response => response.json())
         .then(data => {
             const totalPages = data;

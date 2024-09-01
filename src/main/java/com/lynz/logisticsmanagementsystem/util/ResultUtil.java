@@ -6,9 +6,7 @@ package com.lynz.logisticsmanagementsystem.util;
 
 public class ResultUtil {
 
-    /*
-    * 成功且带数据
-    * */
+
     public static Result<Object> success(Object object){
         Result<Object> result = new Result<>();
         result.setCode(ResultCode.SUCCESS.getCode());
