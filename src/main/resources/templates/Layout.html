@@ -19,7 +19,7 @@
         });
     </script>
     <!-- Favicon -->
-    <link rel="icon" th:href="@{/static/img/favicon.png}" type="image/png">
+    <link rel="icon" th:href="@{/static/img/favicon.ico}" type="image/png">
     <!-- Font Awesome -->
     <link rel="stylesheet" th:href="@{/static/css/all.min.css}">
     <!-- Quick CSS -->
@@ -67,22 +67,6 @@
                 }
             });
         }
-
-        window.addEventListener('beforeunload', function (event) {
-            // 发送登出请求
-            fetch('/users/api/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: '' // 可以根据需要传递参数
-            }).then(function (response) {
-                // 登出响应处理
-                console.log('Logout successful');
-            }).catch(function (error) {
-                console.error('Error logging out:', error);
-            });
-        });
 
         $(function(){
             is_logged_in();

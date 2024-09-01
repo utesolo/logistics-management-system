@@ -3,7 +3,7 @@
     <div class="container">
         <!-- Brand -->
         <a class="navbar-brand" href="/">
-            <img alt="Image placeholder" src="/static/img/favicon.png" id="navbar-logo">
+            <img alt="Image placeholder" th:src="@{/static/img/favicon.ico}" id="navbar-logo">
         </a>
         <!-- Toggler -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,6 +14,9 @@
             <ul class="navbar-nav mt-4 mt-lg-0 ml-auto">
                 <li class="nav-item ">
                     <a class="nav-link" href="/">主页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/userLog">下单</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="/order/userorders">订单管理</a>
