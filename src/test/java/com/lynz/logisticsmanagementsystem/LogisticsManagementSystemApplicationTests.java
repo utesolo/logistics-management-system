@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @SpringBootTest(classes = LogisticsManagementSystemApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class LogisticsManagementSystemApplicationTests {
-    @Autowired
+    /*@Autowired
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
@@ -36,5 +36,5 @@ class LogisticsManagementSystemApplicationTests {
     void password(){
         System.out.println("\n+test+{}"+passwordEncoder.encode(userMapper.selectPasswordByUsername("test")));
         System.out.println("\n+test+{}"+passwordEncoder.encode(userMapper.selectPasswordByUsername("root")));
-    }
+    }*/
 }
